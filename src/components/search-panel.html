@@ -1,0 +1,68 @@
+<template>
+
+  <style>
+  </style>
+
+  <form>
+    <input type="text" name="sub-reddit" placeholder="Subreddit" value="reactjs" />
+    <input type="text" name="search-tag" placeholder="Search" />
+    <select name="time-period">
+      <option value="all" selected>All time</option>
+      <option value="hour">Last hour</option>
+      <option value="day">Last 24 hour</option>
+      <option value="week">Last week</option>
+      <option value="month">Last month</option>
+      <option value="year">Last year</option>
+    </select>
+    <button type="submit">Search</button>
+  </form>
+
+</template>
+
+
+<script>
+  (function () {
+
+    const thatDoc = document;
+    const thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+    const template = thisDoc.querySelector('template').content;
+
+    if (window.ShadowDOMPolyfill) {
+      WebComponents.ShadowCSS.shimStyling(template, 'vimeo');
+    }
+
+    class SearchPanel extends HTMLElement {
+      connectedCallback() {
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(thatDoc.importNode(template, true));
+
+        const form = this.shadowRoot.querySelector('form');
+        const subreddit = form.querySelector('input[name="sub-reddit"]').value;
+        const searchTag = form.querySelector('input[name="search-tag"]').value;
+        const timePeriod = form.querySelector('select[name="time-period"]').value;
+
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+
+          const searchData = {
+            detail: {
+              subreddit,
+              searchTag,
+              timePeriod,
+            },
+          };
+
+          const searchEvent = new CustomEvent('search', searchData);
+
+          this.dispatchEvent(searchEvent);
+
+          return false;
+        });
+      }
+    }
+
+    window.customElements.define('search-panel', SearchPanel);
+  })();
+
+
+</script>
