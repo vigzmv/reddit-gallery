@@ -1,0 +1,78 @@
+<template>
+  <style>
+  </style>
+
+  <div class="item">
+    <a>
+      <span></span>
+      <img src="https://placekitten.com/200/200">
+    </a>
+  </div>
+
+</template>
+
+<script>
+  (function () {
+    const thatDoc = document;
+    const thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
+    const template = thisDoc.querySelector('template').content;
+
+    class FeedItem extends HTMLElement {
+      static get observedAttributes() {
+        return ['image', 'permalink', 'title'];
+      }
+
+      set image(url) {
+        this.setAttribute('image', url);
+      }
+
+      get image() {
+        return this.getAttribute('image');
+      }
+
+      set permalink(url) {
+        this.setAttribute('permalink', url);
+      }
+
+      get permalink() {
+        return this.getAttribute('permalink');
+      }
+
+      set title(str) {
+        this.setAttribute('title', str);
+      }
+
+      get title() {
+        return this.getAttribute('title');
+      }
+
+      connectedCallback() {
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(thatDoc.importNode(template, true));
+
+        this.updateItem();
+      }
+
+      attributeChangedCallback() {
+        this.updateItem();
+      }
+
+      updateItem() {
+        if (this.shadowRoot) {
+          let { title } = this;
+          if (title.length > 30) {
+            title = `${title.slice(0, 30)}...`;
+          }
+
+          this.image ? this.shadowRoot.querySelector('img').setAttribute('src', this.image) : null;
+          this.title ? (this.shadowRoot.querySelector('span').textContent = title) : null;
+          this.permalink
+            ? this.shadowRoot.querySelector('a').setAttribute('permalink', this.permalink)
+            : null;
+        }
+      }
+    }
+
+    window.customElements.define('feed-item', FeedItem);
+  })();
+</script>

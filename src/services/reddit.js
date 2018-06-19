@@ -1,8 +1,11 @@
 const REDDIT_BASE_URL = 'https://www.reddit.com';
 
 const redditSearch = ({ subreddit, searchTag, timePeriod }) => {
-  const url = new URL(`${REDDIT_BASE_URL}/r/${subreddit}/${searchTag ? `search` : `top`}.json`);
-  const queryParams = {
+  // if search terms is given, do a search, else give top
+  const searchType = searchTag ? `search` : `top`;
+
+  const url = new URL(`${REDDIT_BASE_URL}/r/${subreddit}/${searchType}.json`);
+  const searchParams = {
     sort: 'top',
     restrict_sr: 'on',
     type: 'image',
@@ -10,9 +13,17 @@ const redditSearch = ({ subreddit, searchTag, timePeriod }) => {
     q: searchTag,
     t: timePeriod,
   };
-  url.search = new URLSearchParams(queryParams);
+  url.search = new URLSearchParams(searchParams);
 
-  return fetch(url).then(res => res.json());
+  return fetch(url)
+    .then(res => res.json())
+    .then(res =>
+      res.data.children.map(({ data }) => ({
+        title: data.title,
+        image: data.thumbnail,
+        permalink: data.permalink,
+      })),
+    );
 };
 
 export default redditSearch;

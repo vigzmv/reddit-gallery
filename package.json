@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm run clean",
     "start": "parcel index.html",
-    "build": "parcel build index.html && mv dist docs",
+    "prebuild": "npm run clean",
+    "build": "parcel build index.html",
+    "postbuild": "mv dist docs",
     "clean": "rm -rf ./dist ./.cache ./docs"
   },
   "repository": {
