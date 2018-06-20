@@ -7,11 +7,11 @@ searchPanel.addEventListener('search', async e => {
   const feed = document.querySelector('.feed');
   feed.innerHTML = '';
 
-  posts.forEach(({ title, image, permalink }) => {
+  posts.forEach(({ title, image, link }) => {
     const feedItem = document.createElement('feed-item');
     feedItem.title = title;
     feedItem.image = image;
-    feedItem.permalink = `https://www.reddit.com${permalink}`;
+    feedItem.link = `https://www.reddit.com${link}`;
     feed.appendChild(feedItem);
   });
 });

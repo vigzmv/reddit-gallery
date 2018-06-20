@@ -1,25 +1,65 @@
 <template>
   <style>
+    article {
+      position: relative;
+      opacity: 0.96;
+      transition: 0.16s ease transform;
+    }
+
+    article:hover {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    article:hover a span {
+      border-bottom: 4px solid #ff7300d2;
+    }
+
+    a img {
+      width: 100%;
+      height: 168px;
+      object-fit: cover;
+    }
+
+    a span {
+      position: absolute;
+      bottom: 1px;
+      padding: 6px;
+      width: calc(100% - 12px);
+      height: 24px;
+      margin-bottom: 0;
+      background-color: #fff4efec;
+      color: black;
+      font-size: 10px;
+      border-bottom: 3px solid #ffa60085;
+    }
   </style>
 
-  <div class="item">
-    <a>
+  <article>
+    <a target="_blank">
       <span></span>
       <img src="https://placekitten.com/200/200">
     </a>
-  </div>
+  </article>
 
 </template>
 
 <script>
+
   (function () {
+
+    function isUrl(s) {
+      const regexp = /(ftp|http|https)/;
+      return regexp.test(s);
+    }
+
     const thatDoc = document;
     const thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
     const template = thisDoc.querySelector('template').content;
 
     class FeedItem extends HTMLElement {
       static get observedAttributes() {
-        return ['image', 'permalink', 'title'];
+        return ['image', 'link', 'title'];
       }
 
       set image(url) {
@@ -30,12 +70,12 @@
         return this.getAttribute('image');
       }
 
-      set permalink(url) {
-        this.setAttribute('permalink', url);
+      set link(url) {
+        this.setAttribute('link', url);
       }
 
-      get permalink() {
-        return this.getAttribute('permalink');
+      get link() {
+        return this.getAttribute('link');
       }
 
       set title(str) {
@@ -59,20 +99,21 @@
 
       updateItem() {
         if (this.shadowRoot) {
-          let { title } = this;
-          if (title.length > 30) {
-            title = `${title.slice(0, 30)}...`;
+          let { title, image } = this;
+          if (title.length > 56) {
+            title = `${title.slice(0, 56)}...`;
           }
 
-          this.image ? this.shadowRoot.querySelector('img').setAttribute('src', this.image) : null;
-          this.title ? (this.shadowRoot.querySelector('span').textContent = title) : null;
-          this.permalink
-            ? this.shadowRoot.querySelector('a').setAttribute('permalink', this.permalink)
-            : null;
+          image = isUrl(image) ? image : 'https://placekitten.com/180/180';
+
+          if (this.image) this.shadowRoot.querySelector('img').setAttribute('src', image);
+          if (this.link) this.shadowRoot.querySelector('a').setAttribute('href', this.link);
+          if (this.title) this.shadowRoot.querySelector('span').textContent = title;
         }
       }
     }
 
     window.customElements.define('feed-item', FeedItem);
   })();
+
 </script>

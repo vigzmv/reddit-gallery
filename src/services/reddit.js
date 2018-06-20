@@ -21,7 +21,7 @@ const redditSearch = ({ subreddit, searchTag, timePeriod }) => {
       res.data.children.map(({ data }) => ({
         title: data.title,
         image: data.thumbnail,
-        permalink: data.permalink,
+        link: data.link,
       })),
     );
 };
