@@ -2,17 +2,17 @@
 
   <style>
     .container {
-      background: #f7f7f7ad;
       display: flex;
       justify-content: center;
+      background: #f7f7f7ad;
       border-top: 2.8px solid #ff7434;
       border-bottom: 2px solid #e2e2e2;
     }
 
     .search-panel {
+      display: flex;
       width: 900px;
       height: 60px;
-      display: flex;
       align-items: center;
       justify-content: space-around;
     }
@@ -28,10 +28,10 @@
     }
 
     form {
-      min-height: 30px;
-      width: 560px;
       display: flex;
       justify-content: space-around;
+      min-height: 30px;
+      width: 560px;
     }
 
     input,
@@ -169,6 +169,5 @@
 
     window.customElements.define('search-panel', SearchPanel);
   })();
-
 
 </script>

@@ -28,7 +28,7 @@
       width: calc(100% - 12px);
       min-height: 24px;
       margin-bottom: 0;
-      background-color: #fff4efec;
+      background-color: #fff7f4ec;
       color: black;
       font-size: 10px;
       border-bottom: 3px solid #ffa60085;
@@ -99,7 +99,9 @@
 
       updateItem() {
         if (this.shadowRoot) {
-          let { title, image } = this;
+
+          let { title, image, link } = this;
+
           if (title.length > 54) {
             title = `${title.slice(0, 54)}...`;
           }
@@ -107,7 +109,7 @@
           image = isUrl(image) ? image : 'https://placekitten.com/180/180';
 
           if (this.image) this.shadowRoot.querySelector('img').setAttribute('src', image);
-          if (this.link) this.shadowRoot.querySelector('a').setAttribute('href', this.link);
+          if (this.link) this.shadowRoot.querySelector('a').setAttribute('href', link);
           if (this.title) this.shadowRoot.querySelector('span').textContent = title;
         }
       }

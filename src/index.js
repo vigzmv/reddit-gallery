@@ -1,6 +1,7 @@
 import redditSearch from './services/reddit';
 
-const FIVE_MINUTES = 5 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
+
 const feed = document.querySelector('.feed');
 const searchPanel = document.querySelector('search-panel');
 
