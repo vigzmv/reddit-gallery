@@ -1,12 +1,12 @@
-html, body {
+* {
+  box-sizing: border-box;
+}
+
+body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   width: 100%;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .container {
@@ -14,7 +14,7 @@ html, body {
 }
 
 .feed {
-  margin: 16px auto 0;
+  margin: 16px auto;
   max-width: 900px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));

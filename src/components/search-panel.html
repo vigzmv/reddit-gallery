@@ -37,12 +37,17 @@
       font-size: 14px;
       border: 1px solid #dedede;
       padding-left: 8px;
+      margin-left: 8px;
     }
 
     select {
       border: none;
       cursor: pointer;
-      max-width: 16%;
+      background: #ddd;
+    }
+
+    select:hover {
+      background: #e1e1e1;
     }
 
     button {
@@ -50,7 +55,6 @@
       font-size: 15px;
       color: white;
       padding: 0;
-      padding-top: 3px;
       text-align: center;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
       background: #e67e22;
@@ -66,9 +70,8 @@
     }
 
     button:hover {
-      background: #e07c24;
+      background: #fc8f30;
     }
-
 
     @media only screen and (max-width: 860px) {
       .search-panel {
@@ -93,7 +96,7 @@
         min-width: 80%;
         font-size: 14px;
         margin: 4px auto;
-        font-size: 20px;
+        font-size: 18px;
         height: 30px;
       }
     }
@@ -113,7 +116,7 @@
           <option value="month">Last month</option>
           <option value="year">Last year</option>
         </select>
-        <button type="submit">Search</button>
+        <button type="submit">🔍 Search</button>
       </form>
     </div>
   </div>
@@ -136,12 +139,13 @@
         this.shadowRoot.appendChild(thatDoc.importNode(template, true));
 
         const form = this.shadowRoot.querySelector('form');
-        const subreddit = form.querySelector('input[name="sub-reddit"]').value;
-        const searchTag = form.querySelector('input[name="search-tag"]').value;
-        const timePeriod = form.querySelector('select[name="time-period"]').value;
 
         form.addEventListener('submit', e => {
           e.preventDefault();
+
+          const subreddit = form.querySelector('input[name="sub-reddit"]').value;
+          const searchTag = form.querySelector('input[name="search-tag"]').value;
+          const timePeriod = form.querySelector('select[name="time-period"]').value;
 
           const searchData = {
             subreddit,

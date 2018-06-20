@@ -2,8 +2,8 @@
   <style>
     article {
       position: relative;
-      opacity: 0.96;
-      transition: 0.16s ease transform;
+      opacity: 0.95;
+      transition: 0.18s ease transform;
     }
 
     article:hover {
@@ -26,7 +26,7 @@
       bottom: 1px;
       padding: 6px;
       width: calc(100% - 12px);
-      height: 24px;
+      min-height: 24px;
       margin-bottom: 0;
       background-color: #fff4efec;
       color: black;
@@ -100,8 +100,8 @@
       updateItem() {
         if (this.shadowRoot) {
           let { title, image } = this;
-          if (title.length > 56) {
-            title = `${title.slice(0, 56)}...`;
+          if (title.length > 54) {
+            title = `${title.slice(0, 54)}...`;
           }
 
           image = isUrl(image) ? image : 'https://placekitten.com/180/180';
