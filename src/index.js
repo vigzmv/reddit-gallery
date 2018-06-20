@@ -3,8 +3,9 @@ import redditSearch from './services/reddit';
 const searchPanel = document.querySelector('search-panel');
 const feed = document.querySelector('.feed');
 
-let response;
+let redditResponse;
 let searchParams;
+let fetchingResults = false;
 
 const setPosts = posts => {
   posts.forEach(({ title, image, link }) => {
@@ -17,15 +18,22 @@ const setPosts = posts => {
 };
 
 searchPanel.addEventListener('search', async e => {
+  Pace.restart();
   searchParams = e.detail;
-  response = await redditSearch(searchParams);
+  redditResponse = await redditSearch(searchParams);
   feed.innerHTML = '';
-  setPosts(response.posts);
+  setPosts(redditResponse.posts);
 });
 
-window.onscroll = async function(ev) {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight + 16) {
-    response = await redditSearch(searchParams, response.after);
-    setPosts(response.posts);
+window.addEventListener('scroll', async function() {
+  if (
+    window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+    !fetchingResults
+  ) {
+    fetchingResults = true;
+    Pace.restart();
+    redditResponse = await redditSearch(searchParams, redditResponse.after);
+    setPosts(redditResponse.posts);
+    fetchingResults = false;
   }
-};
+});
