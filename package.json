@@ -7,7 +7,7 @@
     "prestart": "npm run clean",
     "start": "parcel index.html",
     "prebuild": "npm run clean",
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --public-url ./",
     "postbuild": "mv dist docs",
     "clean": "rm -rf ./dist ./.cache ./docs"
   },
