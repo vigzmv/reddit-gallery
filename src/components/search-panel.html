@@ -17,6 +17,10 @@
       justify-content: space-around;
     }
 
+    a {
+      text-decoration: none;
+    }
+
     span {
       font-size: 28px;
       font-weight: bolder;
@@ -104,7 +108,9 @@
 
   <div class="container">
     <div class="search-panel">
-      <span>Reddit Magazine</span>
+      <a href="/">
+        <span>Reddit Magazine</span>
+      </a>
       <form>
         <input type="text" name="sub-reddit" placeholder="Subreddit" value="reactjs" />
         <input type="text" name="search-tag" placeholder="Search" />
@@ -116,7 +122,7 @@
           <option value="month">Last month</option>
           <option value="year">Last year</option>
         </select>
-        <button type="submit">🔍 Search</button>
+        <button type="submit">🔍 Search&nbsp;</button>
       </form>
     </div>
   </div>
