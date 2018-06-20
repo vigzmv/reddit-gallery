@@ -1,4 +1,5 @@
 import redditSearch from './services/reddit';
+import { isUrl } from './utils';
 
 const FIVE_MINUTES = 5 * 60 * 1000;
 
@@ -11,12 +12,14 @@ let fetchingResults = false;
 
 const setPosts = posts => {
   posts.forEach(({ title, image, link }) => {
-    const feedItem = document.createElement('feed-item');
+    if (isUrl(image)) {
+      const feedItem = document.createElement('feed-item');
 
-    feedItem.title = title;
-    feedItem.image = image;
-    feedItem.link = `https://www.reddit.com${link}`;
-    feed.appendChild(feedItem);
+      feedItem.title = title;
+      feedItem.image = image;
+      feedItem.link = `https://www.reddit.com${link}`;
+      feed.appendChild(feedItem);
+    }
   });
 };
 

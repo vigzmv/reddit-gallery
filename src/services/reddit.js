@@ -12,7 +12,7 @@ const getUrlWithQueries = (
     sort: 'top',
     restrict_sr: 'on',
     type: 'image',
-    limit: manyUrls ? '10' : '20',
+    limit: manyUrls ? '20' : '30',
     t: timePeriod,
   };
 

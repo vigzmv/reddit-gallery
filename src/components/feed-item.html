@@ -48,11 +48,6 @@
 
   (function () {
 
-    function isUrl(s) {
-      const regexp = /(ftp|http|https)/;
-      return regexp.test(s);
-    }
-
     const thatDoc = document;
     const thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
     const template = thisDoc.querySelector('template').content;
@@ -106,11 +101,9 @@
             title = `${title.slice(0, 54)}...`;
           }
 
-          image = isUrl(image) ? image : 'https://placekitten.com/180/180';
-
-          if (this.image) this.shadowRoot.querySelector('img').setAttribute('src', image);
-          if (this.link) this.shadowRoot.querySelector('a').setAttribute('href', link);
-          if (this.title) this.shadowRoot.querySelector('span').textContent = title;
+          this.shadowRoot.querySelector('img').setAttribute('src', image);
+          this.shadowRoot.querySelector('a').setAttribute('href', link);
+          this.shadowRoot.querySelector('span').textContent = title;
         }
       }
     }
