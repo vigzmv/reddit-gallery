@@ -33,10 +33,7 @@ const clearLocalCache = key => {
   localStorage.removeItem(`${JSON.stringify(key)}-timestamp`);
 };
 
-searchPanel.addEventListener('search', async e => {
-  Pace.restart();
-  searchParams = e.detail;
-
+const fetchPosts = async () => {
   const cachedResponse = localStorage.getItem(JSON.stringify(searchParams));
 
   if (cachedResponse) {
@@ -56,21 +53,29 @@ searchPanel.addEventListener('search', async e => {
     redditResponse = await redditSearch(searchParams);
     setLocalCache(searchParams, redditResponse);
   }
+};
 
+const fetchMorePosts = async () => {
+  Pace.restart();
+  fetchingResults = true;
+  redditResponse = await redditSearch(searchParams, redditResponse.after);
+  setPosts(redditResponse.posts);
+  fetchingResults = false;
+};
+
+searchPanel.addEventListener('search', async e => {
+  Pace.restart();
+  searchParams = e.detail;
+  await fetchPosts();
   feed.innerHTML = '';
   setPosts(redditResponse.posts);
 });
 
-window.addEventListener('scroll', async function() {
+window.addEventListener('scroll', async () => {
   if (
     window.innerHeight + window.scrollY >= document.body.offsetHeight &&
     !fetchingResults
   ) {
-    fetchingResults = true;
-    Pace.restart();
-
-    redditResponse = await redditSearch(searchParams, redditResponse.after);
-    setPosts(redditResponse.posts);
-    fetchingResults = false;
+    await fetchMorePosts();
   }
 });

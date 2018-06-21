@@ -12,7 +12,7 @@ const getUrlWithQueries = (
     sort: 'top',
     restrict_sr: 'on',
     type: 'image',
-    limit: manyUrls ? '20' : '30',
+    limit: manyUrls ? '15' : '25',
     t: timePeriod,
   };
 
@@ -30,23 +30,20 @@ const getUrlWithQueries = (
 };
 
 const redditSearch = (searchParams, after) => {
-  let urls = [];
   const subreddits = searchParams.subreddit.split(',');
   const manyUrls = subreddits.length > 1;
 
-  subreddits.forEach((subreddit, i) => {
-    urls.push(
-      getUrlWithQueries(
-        {
-          after: after && after[i],
-          subreddit: subreddit.trim(),
-          searchTag: searchParams.searchTag,
-          timePeriod: searchParams.timePeriod,
-        },
-        manyUrls,
-      ),
-    );
-  });
+  const urls = subreddits.map((subreddit, i) =>
+    getUrlWithQueries(
+      {
+        after: after && after[i],
+        subreddit: subreddit.trim(),
+        searchTag: searchParams.searchTag,
+        timePeriod: searchParams.timePeriod,
+      },
+      manyUrls,
+    ),
+  );
 
   const requests = urls.map(url =>
     fetch(url)
@@ -62,14 +59,17 @@ const redditSearch = (searchParams, after) => {
               link: data.permalink,
             }))) ||
           [],
-      })),
+      }))
+      .catch(err => console.log(err)),
   );
 
   return Promise.all(requests).then(res =>
     res.reduce(
       (result, item) => {
-        result.after.push(item.after);
-        item.posts.forEach(post => result.posts.push(post));
+        if (item) {
+          result.after.push(item.after);
+          item.posts.forEach(post => result.posts.push(post));
+        }
 
         return result;
       },
