@@ -1,18 +1,21 @@
-# Reddit Magazine
+# Reddit Gallery
 
 [#useThePlatform](https://twitter.com/search?q=%23usetheplatform&lang=en)
 
-[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=102)](https://github.com/vigzmv/reddit_magazine)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=102)](https://github.com/vigzmv/reddit_gallery)
 &nbsp;&nbsp;
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vigzmv/reddit_magazine)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vigzmv/reddit_gallery)
 &nbsp;&nbsp;
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/vigzmv/reddit_magazine)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/vigzmv/reddit_gallery)
 
 Built Using:
 
 - [Web Components](https://developers.google.com/web/fundamentals/web-components/)
 - JavaScript Magic
 - Reddit API
+
+![Welcome Screen](./screenshot.png)
+
 
 ## Search form inputs
 
@@ -29,7 +32,7 @@ Built Using:
 
 ## Live Demo
 
-Check out the live demo here: [vigneshm.com/reddit-magazine](https://vigneshm.com/reddit-magazine/)
+Check out the live demo here: [vigneshm.com/reddit-gallery](https://vigneshm.com/reddit-gallery/)
 
 ## Run the App
 
@@ -59,6 +62,7 @@ npm run build
 
 Builds the app for production to the `docs` folder.<br>
 
+
 ## Contribute ?
 
 - Fork the repository
@@ -67,5 +71,5 @@ Builds the app for production to the `docs` folder.<br>
 
 ## Licence
 
-[MIT Licence](https://github.com/vigzmv/reddit-magazine/blob/master/LICENSE) ©
+[MIT Licence](https://github.com/vigzmv/reddit-gallery/blob/master/LICENSE) ©
 [Vignesh M](https://vigneshm.com)
